@@ -975,7 +975,7 @@ void CHost::Set_S6F11_CmRequest(CString sLotId, CString sCmId)
 	Send_Command(strSend, FALSE, "S6F11", "20403");
 }
 
-void CHost::Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, int nNgPocket, CString sROSResult)
+void CHost::Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, int nNgPocket)
 {
 	SYSTEMTIME time;
 	GetLocalTime(&time);
@@ -1017,9 +1017,6 @@ void CHost::Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CStr
 	strSend += "      <DV NAME=\"NGPOCKETID\" VALUE=\"" + sNGOut + "\" />" + CRLF;
 	strSend += "      <DV NAME=\"OPERATORMODE\" VALUE=\"N\" />" + CRLF;
 	strSend += "      <DV NAME=\"OPERATORID\" VALUE=\"" + gData.sOperId + "\" />" + CRLF;
-	strSend += "      <DV NAME=\"PROCESSDATAQTY\" VALUE=\"1\" />" + CRLF;
-	strSend += "      <DV NAME=\"NAMEAPD1\" VALUE=\"ROS_JUDGE\" />" + CRLF;
-	strSend += "      <DV NAME=\"VALUEAPD1\" VALUE=\"" + sROSResult + "\" />" + CRLF;
 	strSend += "    </DVLIST>" + CRLF;
 	strSend += "  </ITEM>" + CRLF;
 	strSend += "</EIF>";

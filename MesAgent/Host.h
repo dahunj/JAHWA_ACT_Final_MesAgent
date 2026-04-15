@@ -107,7 +107,7 @@ public:
 	void Set_S6F11_LotEnd(CString sLotId, CString sRecipeId, int nHCount, int nOk, int nNg);
 	void Set_S6F11_LotAbort(CString sLotId);				
 	void Set_S6F11_CmRequest(CString sLotId, CString sCmId);	// Module=CM 전공정 DATA 요청
-	void Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, int nNgPocket, CString sROSResult);
+	void Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, int nNgPocket);
 	void Set_S6F11_Terminal();
 	void Set_S6F11_NGLotRequest();
 	void Set_S6F11_NGLotEnd(CString sLotId, int nMOk, int nNg);
