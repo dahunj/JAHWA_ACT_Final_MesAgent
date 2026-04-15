@@ -158,7 +158,7 @@ LRESULT CHandler::OnServerReceive(WPARAM wClientIdx, LPARAM lServerPort)
 
 		} else if (strCmd == "CM") {
 			if (strOp == "REQUEST")	Get_CmRequest(strArg[0], strArg[1]);
-			if (strOp == "END")		Get_CmEnd(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4]);
+			if (strOp == "END")		Get_CmEnd(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4], strArg[5]);
 
 		} else if (strCmd == "RECIPE") {
 			if (strOp == "REQUEST")	Get_RecipeList(strRecv);
@@ -296,10 +296,10 @@ void CHandler::Get_CmRequest(CString sLotId, CString sCmId)
 	g_objHost.Set_S6F11_CmRequest(sLotId, sCmId);
 }
 
-void CHandler::Get_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, CString sPocket)
+void CHandler::Get_CmEnd(CString sLotId, CString sCmId, CString sResult, CString sNgCode, CString sROSResult, CString sPocket)
 {
 	int nPocket = atoi(sPocket);
-	g_objHost.Set_S6F11_CmEnd(sLotId, sCmId, sResult, sNgCode, nPocket);
+	g_objHost.Set_S6F11_CmEnd(sLotId, sCmId, sResult, sNgCode, nPocket, sROSResult);
 }
 
 void CHandler::Get_TerminalOK()
