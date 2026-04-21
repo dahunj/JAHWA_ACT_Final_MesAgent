@@ -998,7 +998,7 @@ void CHost::Set_S6F11_CmEnd(CString sLotId, CString sCmId, CString sResult, CStr
 	strSend += "  <ITEM>" + CRLF;
 	strSend += "    <CEID NAME=\"CEID\" VALUE=\"" + sCEID + "\" />" + CRLF;
 	strSend += "    <RPTID NAME=\"RPTID\" VALUE=\"" + sCEID + "\" />" + CRLF;
-	strSend += "    <DVLIST COUNT=\"18\">" + CRLF;
+	strSend += "    <DVLIST COUNT=\"21\">" + CRLF;
 	strSend += "      <DV NAME=\"TIME\" VALUE=\"" + strTime + "\" />" + CRLF;
 	strSend += "      <DV NAME=\"PORTID\" VALUE=\"" + sPortID + "\" />" + CRLF;
 	strSend += "      <DV NAME=\"LOTID\" VALUE=\"" + sLotId + "\" />" + CRLF;
