@@ -83,6 +83,9 @@ typedef struct {
 
 	int			nAlarmID;
 	CString		sAlarmTxt;
+	
+	int			nAccessMode;
+
 } GLOVAL_DATA;
 
 typedef struct {
@@ -127,3 +130,5 @@ typedef struct {
 extern  GLOVAL_DATA	gData;
 extern  GLOVAL_MES	gMes;
 extern  GLOVAL_IDLE	gIdle;
+
+

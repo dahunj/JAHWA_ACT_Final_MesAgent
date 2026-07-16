@@ -46,6 +46,8 @@ private:
 	void Get_NGLotRequest();
 	void Get_NGLotEnd(CString sLotId, CString sMOk, CString sNg);
 
+	void Get_AccessChanged(CString sAccessMode);
+
 //	void Get_LotInfo(CString sLotId);
 //	void Get_IdleRequest();
 // 	void Get_IdleReport(CString strSet, CString sOperId, CString sCode);	// strSet : "SET" or "RESET"

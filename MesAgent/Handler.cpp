@@ -170,10 +170,16 @@ LRESULT CHandler::OnServerReceive(WPARAM wClientIdx, LPARAM lServerPort)
 		} else if (strCmd == "TERMINAL") {
 			if (strOp == "MSG") 	Get_TerminalOK();
 
-		} else if (strCmd == "NGLOT") {
+		}
+		else if (strCmd == "NGLOT") 
+		{
 			if (strOp == "REQUEST")	Get_NGLotRequest();
 			if (strOp == "END")		Get_NGLotEnd(strArg[0], strArg[1], strArg[2]);
-
+		}
+		else if( strCmd == "ACCESS")
+		{
+			if (strOp == "CHANGED") Get_AccessChanged(strArg[0]);
+		}
 //		} else if (strCmd == "MGZ") {
 //			if (strOp == "ID")		Get_MGZIdReport(strArg[0], strArg[1], strArg[2]);
 // 			if (strOp == "CANCEL")	Get_Cancel(strArg[0], strArg[1]);
@@ -187,7 +193,7 @@ LRESULT CHandler::OnServerReceive(WPARAM wClientIdx, LPARAM lServerPort)
 // 			if (strOp == "CANCEL")	Get_Cancel(strArg[0], strArg[1]);
 //			if (strOp == "INFO")	Get_CarrierInfo(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4], strArg[5], strArg[6]);
 
-		} 
+
 	}
 
 	return 0;
@@ -319,6 +325,11 @@ void CHandler::Get_NGLotEnd(CString sLotId, CString sMOk, CString sNg)
 	g_objHost.Set_S6F11_NGLotEnd(sLotId, nOk, nNg);
 }
 
+
+void CHandler::Get_AccessChanged(CString sAccessMode)
+{
+	g_objHost.Set_S6F11_AccessModeChanged(sAccessMode);
+}
 /*
 void CHandler::Get_LotReady(CString sLotId, CString sPortNo)
 {

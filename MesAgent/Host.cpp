@@ -879,7 +879,7 @@ void CHost::Set_S6F11_EquipState(int nState, int nErrNo)
 	strSend += "  <ITEM>" + CRLF;
 	strSend += "    <CEID NAME=\"CEID\" VALUE=\"10108\" />" + CRLF;
 	strSend += "    <RPTID NAME=\"RPTID\" VALUE=\"10108\" />" + CRLF;
-	strSend += "    <DVLIST COUNT=\"7\">" + CRLF;
+	strSend += "    <DVLIST COUNT=\"8\">" + CRLF;
 	strSend += "      <DV NAME=\"TIME\" VALUE=\"" + strTime + "\" />" + CRLF;
 	strSend += "      <DV NAME=\"OPERATORID\" VALUE=\"" + gData.sOperId + "\" />" + CRLF;
 	strSend += "      <DV NAME=\"PREVNEWEQPSTATE\" VALUE=\"" + strOldState + "\" />" + CRLF;
@@ -1177,6 +1177,35 @@ void CHost::Set_S6F11_IdleReportSet(BOOL bSet)
 	strSend += "</EIF>";
 
 	Send_Command(strSend, FALSE, "S6F11", strCEID);
+}
+
+
+void CHost::Set_S6F11_AccessModeChanged(CString sMode)
+{
+	SYSTEMTIME time;
+	GetLocalTime(&time);
+
+	CString strTime;
+	strTime.Format("%04d%02d%02d%02d%02d%02d", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+
+	CString strSend = "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + CRLF;
+
+	strSend += "<EIF VERSION=\"2.0\" ID=\"S6F11\" NAME=\"Event Report\">" + CRLF;
+	strSend += "  <ELEMENT>" + CRLF;
+	strSend += "    <EQPID VALUE=\"" + gData.sEquipId + "\" />" + CRLF;
+	strSend += "  </ELEMENT>" + CRLF;
+	strSend += "  <ITEM>" + CRLF;
+	strSend += "    <CEID NAME=\"CEID\" VALUE=\"10109\" />" + CRLF;
+	strSend += "    <RPTID NAME=\"RPTID\" VALUE=\"10109\" />" + CRLF;
+	strSend += "    <DVLIST COUNT=\"3\">" + CRLF;
+	strSend += "      <DV NAME=\"TIME\" VALUE=\"" + strTime + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"EQUIPMENTACCESSMODE\" VALUE=\"" + sMode + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"OPERATORID\" VALUE=\"" + gData.sOperId + "\" />" + CRLF;
+	strSend += "    </DVLIST>" + CRLF;
+	strSend += "  </ITEM>" + CRLF;
+	strSend += "</EIF>";
+
+	Send_Command(strSend, FALSE, "S6F11", "10109");
 }
 
 void CHost::Set_S6F11_Terminal()
