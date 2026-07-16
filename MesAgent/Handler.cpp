@@ -220,11 +220,11 @@ void CHandler::Get_ErrorUpdate(CString sFlag, CString sErrNo)
 	gData.sAlarmTxt = INI.Get_String("ERROR", sErrNo, "");
 
 	if (nFlag == 1) {
-		g_objHost.Set_S6F11_EquipState(6, nErrNo);	//Down
+		g_objHost.Set_S6F11_EquipState(3, nErrNo);	//Down
 		g_objHost.Set_S5F1_Alarm(1, nErrNo);
 	} else {
 		g_objHost.Set_S5F1_Alarm(0, nErrNo);
-		g_objHost.Set_S6F11_EquipState(5, 0);		//Run
+		g_objHost.Set_S6F11_EquipState(1, 0);		//Run
 	}
 }
 
