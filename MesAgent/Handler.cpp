@@ -135,19 +135,31 @@ LRESULT CHandler::OnServerReceive(WPARAM wClientIdx, LPARAM lServerPort)
 		CString strArg[10];
 		for (int i = 0; i < 10; i++) AfxExtractSubString(strArg[i], strRecv, i + 2, chSep);
 
-		if (strCmd == "OPER") {
+		if (strCmd == "OPER") 
+		{
 			if (strOp == "UPDATE") Get_OperUpdate(strArg[0]);
-
-		} else if (strCmd == "EQUIP") {
+		} 
+		else if (strCmd == "EQUIP")
+		{
 			if (strOp == "STATE") Get_EquipState(strArg[0]);
 
-		} else if (strCmd == "ERROR") {
+		} 
+		else if (strCmd == "UNIT")
+		{
+			if (strOp == "STATE") Get_UnitState(strArg[0]);
+
+		} 
+		else if (strCmd == "ERROR")
+		{
 			if (strOp == "UPDATE") Get_ErrorUpdate(strArg[0], strArg[1]);
 
-		} else if (strCmd == "CONTROL") {
+		}
+		else if (strCmd == "CONTROL")
+		{
 			if (strOp == "STATE") Get_ControlState(strArg[0], strArg[1]);
-
-		} else if (strCmd == "LOT") {
+		}
+		else if (strCmd == "LOT") 
+		{
 			if (strOp == "START")	Get_LotStart(strArg[0], strArg[1], strArg[2], strArg[3]);
 			if (strOp == "ABORT")	Get_LotAbort(strArg[0]);
 			if (strOp == "END")		Get_LotEnd(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4]);
@@ -156,14 +168,20 @@ LRESULT CHandler::OnServerReceive(WPARAM wClientIdx, LPARAM lServerPort)
 // 			if (strOp == "READY")	Get_LotReady(strArg[0], strArg[1]);
 //			if (strOp == "CANCEL")	Get_Cancel(strArg[0], strArg[1]);
 
-		} else if (strCmd == "CM") {
+		}
+		else if (strCmd == "CM")
+		{
 			if (strOp == "REQUEST")	Get_CmRequest(strArg[0], strArg[1]);
 			if (strOp == "END")		Get_CmEnd(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4], strArg[5]);
 
-		} else if (strCmd == "RECIPE") {
+		} 
+		else if (strCmd == "RECIPE") 
+		{
 			if (strOp == "REQUEST")	Get_RecipeList(strRecv);
 
-		} else if (strCmd == "IDLE") {
+		} 
+		else if (strCmd == "IDLE") 
+		{
 // 			if (strOp == "REQUEST") Get_IdleRequest();
 			if (strOp == "REPORT") 	Get_IdleReport(strArg[0], strArg[1], strArg[2], strArg[3], strArg[4]);
 
@@ -211,6 +229,12 @@ void CHandler::Get_EquipState(CString sState)
 {
 	int nState = atoi(sState);
 	g_objHost.Set_S6F11_EquipState(nState, 0);
+}
+
+void CHandler::Get_UnitState(CString sState)
+{
+	int nState = atoi(sState);
+	g_objHost.Set_S6F11_UnitState(nState);
 }
 
 void CHandler::Get_ErrorUpdate(CString sFlag, CString sErrNo)

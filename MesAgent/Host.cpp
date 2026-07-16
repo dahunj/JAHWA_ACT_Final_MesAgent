@@ -895,6 +895,40 @@ void CHost::Set_S6F11_EquipState(int nState, int nErrNo)
 	Send_Command(strSend, FALSE, "S6F11", "10108");
 }
 
+
+void CHost::Set_S6F11_UnitState(int nState)
+{
+	CString	strState, strErrNo, strOldState;
+	strState.Format("%d", nState);
+		
+	SYSTEMTIME time;
+	GetLocalTime(&time);
+
+	CString strTime;
+	strTime.Format("%04d%02d%02d%02d%02d%02d", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+
+	CString strSend = "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + CRLF;
+
+	strSend += "<EIF VERSION=\"2.0\" ID=\"S6F11\" NAME=\"Event Report\">" + CRLF;
+	strSend += "  <ELEMENT>" + CRLF;
+	strSend += "    <EQPID VALUE=\"" + gData.sEquipId + "\" />" + CRLF;
+	strSend += "  </ELEMENT>" + CRLF;
+	strSend += "  <ITEM>" + CRLF;
+	strSend += "    <CEID NAME=\"CEID\" VALUE=\"10201\" />" + CRLF;
+	strSend += "    <RPTID NAME=\"RPTID\" VALUE=\"10201\" />" + CRLF;
+	strSend += "    <DVLIST COUNT=\"5\">" + CRLF;
+	strSend += "      <DV NAME=\"TIME\" VALUE=\"" + strTime + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"OPERATORID\" VALUE=\"" + gData.sOperId + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"UNITLISTQTY\" VALUE=\"1\" />" + CRLF;
+	strSend += "      <DV NAME=\"UNITID#1\" VALUE=\"0\" />" + CRLF;
+	strSend += "      <DV NAME=\"UNITSTATE#1\" VALUE=\"" + strState + "\" />" + CRLF;
+	strSend += "    </DVLIST>" + CRLF;
+	strSend += "  </ITEM>" + CRLF;
+	strSend += "</EIF>";
+
+	Send_Command(strSend, FALSE, "S6F11", "10201");
+}
+
 void CHost::Set_S5F1_Alarm(int nSet, int nErrNo)
 {
 	CString sAlCD, sErrNo;
@@ -1307,6 +1341,45 @@ void CHost::Set_S6F11_NGLotEnd(CString sNGLotId, int nMOk, int nNg)
 	strSend += "</EIF>";
 
 	Send_Command(strSend, FALSE, "S6F11", "20109");
+}
+
+void CHost::Set_S6F11_UnitMaterialReport()
+{
+	CString strCount, strMOk, strNg;
+	strMOk.Format("%d", nMOk);
+	strNg.Format("%d", nNg);
+	strCount.Format("%d", nMOk + nNg);
+
+	SYSTEMTIME time;
+	GetLocalTime(&time);
+
+	CString strTime;
+	strTime.Format("%04d%02d%02d%02d%02d%02d", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+
+	CString strSend = "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + CRLF;
+
+	strSend += "<EIF VERSION=\"2.0\" ID=\"S6F11\" NAME=\"Event Report\">" + CRLF;
+	strSend += "  <ELEMENT>" + CRLF;
+	strSend += "    <EQPID VALUE=\"" + gData.sEquipId + "\" />" + CRLF;
+	strSend += "  </ELEMENT>" + CRLF;
+	strSend += "  <ITEM>" + CRLF;
+	strSend += "    <CEID NAME=\"CEID\" VALUE=\"10202\" />" + CRLF;
+	strSend += "    <RPTID NAME=\"RPTID\" VALUE=\"10202\" />" + CRLF;
+	strSend += "    <DVLIST COUNT=\"9\">" + CRLF;
+	strSend += "      <DV NAME=\"TIME\" VALUE=\"" + strTime + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"OPERATORID\" VALUE=\"" + gData.sOperId + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"UNITID\" VALUE=\"0\" />" + CRLF;
+	strSend += "      <DV NAME=\"MATERIALCOUNTLISTQTY\" VALUE=\"1\" />" + CRLF;
+	strSend += "      <DV NAME=\"MATERIALTYPE#1\" VALUE=\"" + gMes.sHostNGModel + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"SLOTNO#1\" VALUE=\"" + gMes.sHostNGRecipe + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"INPUTMATERIALCOUNT#1\" VALUE=\"" + strCount + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"GOODMATERIALCOUNT#1\" VALUE=\"" + strCount + "\" />" + CRLF;
+	strSend += "      <DV NAME=\"NGMATERIALCOUNT#1\" VALUE=\"" + strMOk + "\" />" + CRLF;
+	strSend += "    </DVLIST>" + CRLF;
+	strSend += "  </ITEM>" + CRLF;
+	strSend += "</EIF>";
+
+	Send_Command(strSend, FALSE, "S6F11", "10202");
 }
 
 /*

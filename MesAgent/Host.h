@@ -102,6 +102,7 @@ public:
 	void Set_S6F11_EquipState(int nState, int nErrNo);	// 2:Idle, 5:Run, 6:Down
 	void Set_S6F11_IdleReportSet(BOOL bSet);
 	void Set_S6F11_AccessModeChanged(CString sMode);
+	void Set_S6F11_UnitState(int nState);
 
 
 	void Set_S6F11_LotReport(CString sLotId, CString sRecipeId);
@@ -113,6 +114,8 @@ public:
 	void Set_S6F11_Terminal();
 	void Set_S6F11_NGLotRequest();
 	void Set_S6F11_NGLotEnd(CString sLotId, int nMOk, int nNg);
+
+	void Set_S6F11_UnitMaterialReport();
 
 	void Test_Send();
 	void Test_WriteLog();

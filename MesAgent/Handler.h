@@ -47,6 +47,7 @@ private:
 	void Get_NGLotEnd(CString sLotId, CString sMOk, CString sNg);
 
 	void Get_AccessChanged(CString sAccessMode);
+	void Get_UnitState(CString sState);
 
 //	void Get_LotInfo(CString sLotId);
 //	void Get_IdleRequest();
